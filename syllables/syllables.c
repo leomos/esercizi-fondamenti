@@ -64,50 +64,6 @@ char *syllablize(char *string){
 	return result;
 }
 
-/*
- * This function returns an array of syllables,
- * following the rules of the previous functions. (extract_first_syllable, ecc.)
-*/
-char **split_in_syllables(char *string){
-	/*
-	 * syllables is the array of strings that will be returned.
-	 * It will look like this: {"ab","ca","no"},
-	 * where "ab", "ca" and "no" are arbitrary syllables.
-	 * The problem is that we don't previously know how many syllables
-	 * the string is going to have, so we are also unable to allocate the right
-	 * amount of memory for the array.
-	 * Given that this is not the best way to solve this problem,
-	 * i'm going to assume that the maximum number of bytes of memory
-	 * needed for the array is strictly minor than the number of characters in the string.
-	 * That's because a syllable can be no smaller than just a character.
-	*/
-	char **syllables = malloc(strlen(string)+1);
-
-	/*
-	 * Putting every syllable in an element of the array.
-	*/
-	int i = 0;
-	char *tmp;
-	while(*string){
-		if(syllables[i] = (char *) malloc(sizeof(char) * 3)){
-			printf("ok: ");
-			syllables[i] = extract_first_syllable(string);
-		}
-		else {
-			printf("no");
-			return syllables;
-		}
-		tmp=syllables[0];
-		printf("%s | %s | %s\n", syllables[i], string, tmp);
-		string += strlen(syllables[i]);
-
-		i++;
-	}
-	//printf("%s %s", syllables[1], tmp);
-	return syllables;
-}
-
-
 elem *store_syllables_ordered(char *string){
 	elem *head = NULL;
 	char *token, *tmp = syllablize(string);
