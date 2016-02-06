@@ -31,12 +31,12 @@ int is_consonant(char c){
 
 char *extract_first_syllable_starting_from_vowel(char *chunk){
 	char *result = (char *)malloc(sizeof(char) * 2);
-	result[0] = *chunk;
+	result[0] = chunk[0];
 	result[1] = '\0';
 	return result;
 }
 char *extract_first_syllable_starting_from_consonant(char *chunk){
-	char *result = (char *)malloc(sizeof(char) * 2);
+	char *result = (char *)malloc(sizeof(char) * 3);
 	result[0] = chunk[0];
 	result[1] = chunk[1];
 	result[2] = '\0';
@@ -44,13 +44,11 @@ char *extract_first_syllable_starting_from_consonant(char *chunk){
 }
 
 char *extract_first_syllable(char *chunk){
-	char *result = strdup(".");
 	if(is_vowel(*chunk)){
 		return extract_first_syllable_starting_from_vowel(chunk);
 	} else {
 		return extract_first_syllable_starting_from_consonant(chunk);
 	}
-	return result;
 }
 
 char *syllablize(char *string){
@@ -112,22 +110,14 @@ char **split_in_syllables(char *string){
 
 elem *store_syllables_ordered(char *string){
 	elem *head = NULL;
-	char **r = split_in_syllables(string);
-	while(*r){
-		inc(&head, *r);
-		r++;
+	char *token, *tmp = syllablize(string);
+	while((token = strsep(&tmp, "-")) != NULL){
+		inc(&head, token);
 	}
 	return head;
 }
 
 int main(){
-	char *s = strdup("divagavanovavavavavavanonononono");
-	char **r = split_in_syllables(s);
-	char *c = r[0];
-	//printf("%s\n",c);
-	while(*r){
-		//printf("%s\n", *r);
-		r++;
-	}
-	//print_dict(store_syllables_ordered(s));
+	char *s = strdup("divagavano");
+	print_dict(store_syllables_ordered(s));
 }
